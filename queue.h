@@ -12,4 +12,6 @@ typedef struct{
 	}info;
 }Queue;
 
+typedef char String_256[256];
 Queue* create(int elementSize,int length);
+int enqueue(Queue* queue, void* element);

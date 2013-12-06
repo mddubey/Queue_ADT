@@ -10,3 +10,10 @@ Queue* create(int elementSize, int length){
 	queue->info.length = length;
 	return queue;
 }
+
+int enqueue(Queue* queue, void* element){
+	if(queue->info.length==queue->info.rear)
+		return 0;
+	memmove((queue->elements+(queue->info.rear++)*queue->info.elementSize), element, queue->info.elementSize);
+	return 1;
+}

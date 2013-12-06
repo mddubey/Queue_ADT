@@ -17,7 +17,7 @@ void** getElement(Queue* queue, int index){
 };
 
 int enqueue(Queue* queue, void* element){
-	if(queue->info.rear==queue->info.length-1)
+	if(isFull(queue))
 		return 0;
 	*getElement(queue, ++(queue->info.rear)) = element;
 	return 1;;
@@ -26,7 +26,7 @@ int enqueue(Queue* queue, void* element){
 void* dequeue(Queue* queue){
 	void* element;
 	int i;
-	if(queue->info.rear==-1)
+	if(isEmpty(queue))
 		return NULL;
 	element = *(queue->elements);
 	for(i=1;i<queue->info.length;i++){

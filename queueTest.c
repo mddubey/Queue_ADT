@@ -48,7 +48,7 @@ void test_4_creates_a_queue_for_Strings_elements_with_default_value_blank (){
 
 //**************************************enqueue***********************************
 
-void test_5_inserts_an_element_in_queue_at_front_end(){
+void test_5_inserts_an_element_in_queue_at_rear_end_Integer(){
 	int _3_nums[3] = {12,10,0};
 	int _12 = 12;
 	int _10 = 10;
@@ -56,5 +56,38 @@ void test_5_inserts_an_element_in_queue_at_front_end(){
 	queue = create(sizeof(int), 3);
 	enqueue(queue,&_12);
 	enqueue(queue,&_10);
+	ASSERT(areEqual(expected, *queue));
+}
+
+void test_6_inserts_an_element_in_queue_at_rear_end_doubles(){
+	double _3_nums[3] = {12.0,10.0,0.0};
+	double _12 = 12.0;
+	double _10 = 10.0;
+	Queue expected = {_3_nums,{3,sizeof(double),2,0}};
+	queue = create(sizeof(double), 3);
+	enqueue(queue,&_12);
+	enqueue(queue,&_10);
+	ASSERT(areEqual(expected, *queue));
+}
+
+void test_7_inserts_an_element_in_queue_at_rear_end_characters(){
+	char _3_chars[3] = {'w','q','\0'};
+	char _12 = 'w';
+	char _10 = 'q';
+	Queue expected = {_3_chars,{3,sizeof(char),2,0}};
+	queue = create(sizeof(char), 3);
+	enqueue(queue,&_12);
+	enqueue(queue,&_10);
+	ASSERT(areEqual(expected, *queue));
+}
+
+void test_8_inserts_an_element_in_queue_at_rear_end_Strings(){
+	String_256 _3_names[3] = {"raj","Digs",""};
+	String_256 raj = "raj";
+	String_256 Digs = "Digs";
+	Queue expected = {_3_names,{3,sizeof(String_256),2,0}};
+	queue = create(sizeof(String_256), 3);
+	enqueue(queue,raj);
+	enqueue(queue,Digs);
 	ASSERT(areEqual(expected, *queue));
 }

@@ -11,9 +11,13 @@ Queue* create(int elementSize, int length){
 	return queue;
 }
 
+void* getElement(Queue* queue, int rear){
+	return (queue->elements+rear*queue->info.elementSize);
+}
+
 int enqueue(Queue* queue, void* element){
 	if(queue->info.length==queue->info.rear)
 		return 0;
-	memmove((queue->elements+(queue->info.rear++)*queue->info.elementSize), element, queue->info.elementSize);
+	memmove(getElement(queue, (queue->info.rear)++), element, queue->info.elementSize);
 	return 1;
 }

@@ -13,7 +13,7 @@ Queue* create(int length){
 }
 
 void** getElement(Queue* queue, int index){
-	return (queue->elements+index*sizeof(void*));
+	return (queue->elements+index);
 };
 
 int enqueue(Queue* queue, void* element){

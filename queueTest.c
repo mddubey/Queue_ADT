@@ -67,7 +67,7 @@ void test_4_creates_a_queue_for_Strings_elements_with_default_value_blank (){
 // }
 
 void test_5_inserts_an_element_in_queue_at_rear_end_Integer(){
-	int* nums = malloc(sizeof(int)*2);
+	int* nums = (int*)malloc(sizeof(int)*2);
 	nums[0] = 12;
 	nums[1] = 10; 
 	queue = create(3);
@@ -79,36 +79,33 @@ void test_5_inserts_an_element_in_queue_at_rear_end_Integer(){
 	ASSERT(1 == queue->info.rear);
 }
 
-// void test_6_inserts_an_element_in_queue_at_rear_end_doubles(){
-// 	double* nums = malloc(2*sizeof(double));
-// 	*nums = 10.0;*(nums+sizeof(double)) = 12.0;
-// 	queue = create(3);
-// 	enqueue(queue, nums);
-// 	ASSERT(0 == queue->info.rear);
-// 	enqueue(queue,&nums[1]);
-// }
+void test_6_inserts_an_element_in_queue_at_rear_end_doubles(){
+	double* nums = malloc(2*sizeof(double));
+	nums[0] = 12.0;nums[1] = 10.0;
+	queue = create(3);
+	enqueue(queue, &nums[0]);
+	ASSERT(12.0 == **(double**)getElement(queue, 0));
+	ASSERT(0 == queue->info.rear);
+	enqueue(queue,&nums[1]);
+	ASSERT(10.0 == **(double**)getElement(queue, 1));
+	ASSERT(1 == queue->info.rear);
+}
 
-// void test_7_inserts_an_element_in_queue_at_rear_end_characters(){
-// 	char _3_chars[3] = {'w','q','\0'};
-// 	char _w = 'w';
-// 	char _q = 'q';
-// 	Queue expected = {_3_chars,{3,sizeof(char),2,0}};
-// 	queue = create(sizeof(char), 3);
-// 	enqueue(queue,&_w);
-// 	enqueue(queue,&_q);
-// 	ASSERT(areEqual(expected, *queue));
-// }
+void test_7_inserts_an_element_in_queue_at_rear_end_characters(){
+	char* chars = malloc(sizeof(char)*3);
+	chars[0] = 'w';chars[1] = 'q';
+	queue = create(3);
+	enqueue(queue,&chars[0]);
+	ASSERT('w' == **(char**)getElement(queue,0));
+}
 
-// void test_8_inserts_an_element_in_queue_at_rear_end_Strings(){
-// 	String_256 _3_names[3] = {"raj","Digs",""};
-// 	String_256 raj = "raj";
-// 	String_256 Digs = "Digs";
-// 	Queue expected = {_3_names,{3,sizeof(String_256),2,0}};
-// 	queue = create(sizeof(String_256), 3);
-// 	enqueue(queue,raj);
-// 	enqueue(queue,Digs);
-// 	ASSERT(areEqual(expected, *queue));
-// }
+void test_8_inserts_an_element_in_queue_at_rear_end_Strings(){
+	char* name = malloc(10);
+	name = "Digs";
+	queue = create(3);
+	enqueue(queue,name);
+	ASSERT("Digs" == *(char**)getElement(queue, 0));
+}
 
 // //**************************Dequeue******************************************
 

@@ -223,13 +223,13 @@ void test_15_gives_null_during_deletion_if_queue_is_empty(){
 
 //************************************isFull*****************************
 
-// void test_16_tells_the_queue_is_full(){
-// 	int* num = malloc(sizeof(int));
-// 	int result;
-// 	*num = 10;
-// 	queue = create(1);
-// 	enqueue(queue, num);
-// 	result = isFull(queue);
-// 	ASSERT(1==result);
-// 	free(num);
-// }
+void test_16_tells_the_queue_is_full(){
+	int* num = malloc(sizeof(int));
+	int result;
+	*num = 10;
+	queue = create(1);
+	enqueue(queue, num);
+	result = isFull(queue);
+	ASSERT(1==result);
+	free(num);
+}

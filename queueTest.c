@@ -233,3 +233,29 @@ void test_16_tells_the_queue_is_full(){
 	ASSERT(1==result);
 	free(num);
 }
+
+void test_17_tells_the_queue_is_not_full(){
+	int result;
+	queue = create(1);
+	result = isFull(queue);
+	ASSERT(0==result);
+}
+
+//************************isEmpty**************************
+void test_18_tells_the_queue_is_Empty(){
+	int result;
+	queue = create(1);
+	result = isEmpty(queue);
+	ASSERT(1==result);
+}
+
+void test_19_tells_the_queue_is_not_Empty(){
+	int* num = malloc(sizeof(int));
+	int result;
+	*num = 10;
+	queue = create(1);
+	enqueue(queue, num);
+	result = isEmpty(queue);
+	ASSERT(0==result);
+	free(num);
+}

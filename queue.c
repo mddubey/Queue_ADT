@@ -39,3 +39,7 @@ void* dequeue(Queue* queue){
 int isFull(Queue* queue){
 	return queue->info.rear==queue->info.length-1;
 }
+
+int isEmpty(Queue* queue){
+	return queue->info.rear==-1;
+}

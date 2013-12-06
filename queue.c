@@ -17,12 +17,21 @@ void** getElement(Queue* queue, int index){
 };
 
 int enqueue(Queue* queue, void* element){
+	if(queue->info.rear==queue->info.length-1)
+		return 0;
 	*getElement(queue, ++(queue->info.rear)) = element;
 	return 1;;
 }
 
-// int dequeue(Queue* queue){
-// 	int sourceSize = (queue->info.length-1)*queue->info.elementSize;
-// 	memmove(queue->elements, queue->elements+(queue->info.elementSize), sourceSize);
-// 	return 1;
-// };
+void* dequeue(Queue* queue){
+	void* element;
+	int i;
+	if(queue->info.rear==-1)
+		return NULL;
+	element = *(queue->elements);
+	for(i=1;i<queue->info.length;i++){
+		queue->elements[i-1] = queue->elements[i];
+	}
+	queue->info.rear--;
+	return element;
+};

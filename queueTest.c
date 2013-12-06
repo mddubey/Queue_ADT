@@ -107,17 +107,65 @@ void test_8_inserts_an_element_in_queue_at_rear_end_Strings(){
 	ASSERT("Digs" == *(char**)getElement(queue, 0));
 }
 
+void test_9_gives_error_if_stack_is_full(){
+	int* nums = malloc(2*sizeof(int));
+	int res;
+	queue = create(1);
+	nums[0] = 12;nums[1] = 10;
+	res = enqueue(queue, &nums[0]);
+	ASSERT(1 == res);
+	ASSERT(12 == **(int**)getElement(queue, 0));
+	res = enqueue(queue, &nums[1]);
+	ASSERT(0 == res);
+}
+
+typedef struct 
+{
+	int accNo;
+	int balance;
+}Account;
+
+int areAccountsEqual(Account expected,Account actual){
+	return expected.accNo == actual.accNo && expected.balance == actual.balance;
+}
+void test_10_inserts_an_element_in_queue_at_rear_end_Structure(){
+	Account* account = malloc(sizeof(Account));
+	Account expected = {100,5000};
+	account->accNo = 100;account->balance=5000;
+	queue = create(1);
+	enqueue(queue,account);
+	ASSERT(areAccountsEqual(expected, **(Account**)getElement(queue, 0)));
+}
+
 // //**************************Dequeue******************************************
 
-// void test_10_deletes_the_first_element_of_queue(){
-// 	int _3_nums[3] = {12,0,0};
-// 	int *res;
-// 	int _12 = 12;
-// 	int _10 = 10;
-// 	queue = create(sizeof(int), 3);
-// 	enqueue(queue, &_12);
-// 	enqueue(queue, &_10);
-// 	res = dequeue(queue);
-// 	printf("%d\n",*res );
-// 	ASSERT(12==*res);
-// }
+void test_11_deletes_the_first_element_of_queue(){
+	int* nums = malloc(sizeof(int)*2);
+	int *res;
+	nums[0] = 12;
+	nums[1] = 10;
+	queue = create(3);
+	enqueue(queue, &nums[0]);
+	enqueue(queue, &nums[1]);
+	ASSERT(1==queue->info.rear);
+	res = dequeue(queue);
+	ASSERT(12==*res);
+	ASSERT(0==queue->info.rear);
+};
+
+void test_12_shift_left_remaining_elements_after_deletion(){
+	double* nums = malloc(sizeof(double)*3);
+	nums[0] = 1.0;nums[1] = 2.0;nums[2] = 3.0;
+	queue = create(3);
+	enqueue(queue, &nums[0]);
+	enqueue(queue, &nums[1]);
+	enqueue(queue, &nums[2]);
+	ASSERT(1.0 == **(double**)getElement(queue, 0));
+	ASSERT(2.0 == **(double**)getElement(queue, 1));
+	ASSERT(3.0 == **(double**)getElement(queue, 2));
+	dequeue(queue);
+	ASSERT(2.0 == **(double**)getElement(queue, 0));
+	ASSERT(3.0 == **(double**)getElement(queue, 1));
+}
+
+

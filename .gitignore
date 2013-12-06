@@ -16,3 +16,9 @@
 *.exe
 *.out
 *.app
+
+#After running
+*Runner.c
+*.core
+*.sh
+testUtils.h

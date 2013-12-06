@@ -77,6 +77,7 @@ void test_5_inserts_an_element_in_queue_at_rear_end_Integer(){
 	enqueue(queue, &nums[1]);
 	ASSERT(10 == **(int**)getElement(queue, 1));
 	ASSERT(1 == queue->info.rear);
+	free(nums);
 }
 
 void test_6_inserts_an_element_in_queue_at_rear_end_doubles(){
@@ -89,6 +90,7 @@ void test_6_inserts_an_element_in_queue_at_rear_end_doubles(){
 	enqueue(queue,&nums[1]);
 	ASSERT(10.0 == **(double**)getElement(queue, 1));
 	ASSERT(1 == queue->info.rear);
+	free(nums);
 }
 
 void test_7_inserts_an_element_in_queue_at_rear_end_characters(){
@@ -97,6 +99,7 @@ void test_7_inserts_an_element_in_queue_at_rear_end_characters(){
 	queue = create(3);
 	enqueue(queue,&chars[0]);
 	ASSERT('w' == **(char**)getElement(queue,0));
+	free(chars);
 }
 
 void test_8_inserts_an_element_in_queue_at_rear_end_Strings(){
@@ -105,6 +108,7 @@ void test_8_inserts_an_element_in_queue_at_rear_end_Strings(){
 	queue = create(3);
 	enqueue(queue,name);
 	ASSERT("Digs" == *(char**)getElement(queue, 0));
+	// free(name);
 }
 
 void test_9_gives_error_if_stack_is_full(){
@@ -117,6 +121,7 @@ void test_9_gives_error_if_stack_is_full(){
 	ASSERT(12 == **(int**)getElement(queue, 0));
 	res = enqueue(queue, &nums[1]);
 	ASSERT(0 == res);
+	free(nums);
 }
 
 typedef struct 
@@ -135,6 +140,7 @@ void test_10_inserts_an_element_in_queue_at_rear_end_Structure(){
 	queue = create(1);
 	enqueue(queue,account);
 	ASSERT(areAccountsEqual(expected, **(Account**)getElement(queue, 0)));
+	free(account);
 }
 
 // //**************************Dequeue******************************************
@@ -151,6 +157,7 @@ void test_11_deletes_the_first_element_of_queue(){
 	res = dequeue(queue);
 	ASSERT(12==*res);
 	ASSERT(0==queue->info.rear);
+	free(nums);
 };
 
 void test_12_shift_left_remaining_elements_after_deletion(){
@@ -166,6 +173,63 @@ void test_12_shift_left_remaining_elements_after_deletion(){
 	dequeue(queue);
 	ASSERT(2.0 == **(double**)getElement(queue, 0));
 	ASSERT(3.0 == **(double**)getElement(queue, 1));
+	free(nums);
 }
 
+void test_13_delete_a_string_from_a_queue(){
+	String_256* names = malloc(sizeof(String_256)*2);
+	char* delete_name;
+	char** rem_name;
+	queue = create(2);
+	strcpy(names[0], "Rajesh");
+	strcpy(names[1], "Raman");
+	enqueue(queue, &names[0]);
+	enqueue(queue, &names[1]);
+	delete_name = dequeue(queue);
+	ASSERT(0==queue->info.rear);
+	ASSERT(0==strcmp(delete_name, "Rajesh"));
+	rem_name = (char**)getElement(queue, 0);
+	ASSERT(0==strcmp("Raman",*rem_name));
+	free(names);
+}
 
+void test_14_deletes_a_structure_from_a_queue(){
+	Account* accounts = malloc(sizeof(Account)*2);
+	Account* result;
+	accounts[0].accNo = 100;accounts[0].balance = 1000;
+	accounts[1].accNo = 101;accounts[1].balance = 2000;
+	queue = create(2);
+	enqueue(queue, &accounts[0]);
+	enqueue(queue, &accounts[1]);
+	ASSERT(areAccountsEqual(accounts[0], **(Account**)getElement(queue, 0)));
+	ASSERT(areAccountsEqual(accounts[1], **(Account**)getElement(queue, 1)));
+	ASSERT(1==queue->info.rear);
+	result = dequeue(queue);
+	ASSERT(areAccountsEqual(accounts[1], **(Account**)getElement(queue, 0)));
+	ASSERT(0==queue->info.rear);
+	free(accounts);
+}
+
+void test_15_gives_null_during_deletion_if_queue_is_empty(){
+	Account* accounts = malloc(sizeof(Account));
+	Account* result;
+	queue = create(1);
+	ASSERT(-1 == queue->info.rear);
+	result = dequeue(queue);
+	ASSERT(NULL == result);
+	ASSERT(-1 == queue->info.rear);
+	free(accounts);
+}
+
+//************************************isFull*****************************
+
+// void test_16_tells_the_queue_is_full(){
+// 	int* num = malloc(sizeof(int));
+// 	int result;
+// 	*num = 10;
+// 	queue = create(1);
+// 	enqueue(queue, num);
+// 	result = isFull(queue);
+// 	ASSERT(1==result);
+// 	free(num);
+// }

@@ -217,62 +217,63 @@ void test_14_gives_null_during_deletion_if_queue_is_empty(){
 
 // //************************************isFull*****************************
 
-// void test_16_tells_the_queue_is_full_front_zero(){
-// 	int* num = malloc(sizeof(int));
-// 	int result;
-// 	*num = 10;
-// 	queue = create(1);
-// 	enqueue(queue, num);
-// 	result = isFull(queue);
-// 	ASSERT(1==result);
-// 	free(num);
-// }
+void test_15_tells_the_queue_is_full_front_zero(){
+	int* num = malloc(sizeof(int));
+	int result;
+	*num = 10;
+	queue = create(1);
+	enqueue(queue, num);
+	result = isFull(queue);
+	ASSERT(1==result);
+	free(num);
+}
 
-// void test_17_tells_the_queue_is_full_front_is_one_more_rear(){
-// 	int* num = malloc(sizeof(int)*2);
-// 	int result;
-// 	num[0] = 10;num[1] = 12;
-// 	queue = create(3);
-// 	enqueue(queue, &num[0]);
-// 	enqueue(queue, &num[1]);
-// 	enqueue(queue, &num[0]);
-// 	dequeue(queue);
-// 	result = isFull(queue);
-// 	ASSERT(1==result);
-// 	free(num);
-// }
+void test_16_tells_the_queue_is_full_front_is_one_more_then_rear(){
+	int* num = malloc(sizeof(int)*2);
+	int result;
+	num[0] = 10;num[1] = 12;
+	queue = create(2);
+	enqueue(queue, &num[0]);
+	enqueue(queue, &num[1]);
+	dequeue(queue);
+	enqueue(queue, &num[1]);
+	ASSERT(1 == queue->info.front && 0 == queue->info.rear);
+	result = isFull(queue);
+	ASSERT(1==result);
+	free(num);
+}
 
-// void test_17_tells_the_queue_is_not_full(){
-// 	int result;
-// 	queue = create(1);
-// 	result = isFull(queue);
-// 	ASSERT(0==result);
-// }
+void test_17_tells_the_queue_is_not_full(){
+	int result;
+	queue = create(1);
+	result = isFull(queue);
+	ASSERT(0 == result);
+}
 
 // //************************isEmpty**************************
-// void test_18_tells_the_queue_is_Empty(){
-// 	int result;
-// 	queue = create(1);
-// 	result = isEmpty(queue);
-// 	ASSERT(1==result);
-// }
+void test_18_tells_the_queue_is_Empty(){
+	int result;
+	queue = create(1);
+	result = isEmpty(queue);
+	ASSERT(1==result);
+}
 
-// void test_19_tells_the_queue_is_not_Empty(){
-// 	int* num = malloc(sizeof(int));
-// 	int result;
-// 	*num = 10;
-// 	queue = create(1);
-// 	enqueue(queue, num);
-// 	result = isEmpty(queue);
-// 	ASSERT(0==result);
-// 	free(num);
-// }
+void test_19_tells_the_queue_is_not_Empty(){
+	int* num = malloc(sizeof(int));
+	int result;
+	*num = 10;
+	queue = create(1);
+	enqueue(queue, num);
+	result = isEmpty(queue);
+	ASSERT(0==result);
+	free(num);
+}
 
 
 
 //***************************************Some Cases******************
 
-void test_10_inserts_the_element_at_the_starting_of_queue_if_rear_is_end_of_queue(){
+void test_20_inserts_the_element_at_the_starting_of_queue_if_rear_is_end_of_queue(){
 	Account* accounts = malloc(sizeof(Account)*2);
 	Account expected = {101,2000};
 	accounts[0].accNo = 100;accounts[0].balance = 1000;

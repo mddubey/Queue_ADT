@@ -66,7 +66,7 @@ void test_4_creates_a_queue_for_Strings_elements_with_default_value_blank (){
 // 	ASSERT("Raaz" == *(char**)getElement(queue, 2));
 // }
 
-void test_5_inserts_first_elemetnt_in_queue(){
+void test_5_inserts_first_elemetnt_in_queue_queue_and_front_increase_by_one(){
 	int* nums = (int*)malloc(sizeof(int)*1);
 	*nums = 12;
 	queue = create(3);
@@ -77,49 +77,42 @@ void test_5_inserts_first_elemetnt_in_queue(){
 	free(nums);
 }
 
-// void test_6_inserts_an_element_in_queue_at_rear_end_doubles(){
-// 	double* nums = malloc(2*sizeof(double));
-// 	nums[0] = 12.0;nums[1] = 10.0;
-// 	queue = create(3);
-// 	enqueue(queue, &nums[0]);
-// 	ASSERT(12.0 == **(double**)getElement(queue, 0));
-// 	ASSERT(0 == queue->info.rear);
-// 	enqueue(queue,&nums[1]);
-// 	ASSERT(10.0 == **(double**)getElement(queue, 1));
-// 	ASSERT(1 == queue->info.rear);
-// 	free(nums);
-// }
+void test_6_inserts_a_double_in_queue_at_rear_end_only_rear_increase(){
+	double* nums = malloc(2*sizeof(double));
+	nums[0] = 12.0;nums[1] = 10.0;
+	queue = create(3);
+	enqueue(queue, &nums[0]);
+	ASSERT(12.0 == **(double**)getElement(queue, 0));
+	ASSERT(0 == queue->info.rear && 0 == queue->info.front);
+	enqueue(queue,&nums[1]);
+	ASSERT(10.0 == **(double**)getElement(queue, 1));
+	ASSERT(1 == queue->info.rear && 0 == queue->info.front);
+	free(nums);
+}
 
-// void test_7_inserts_an_element_in_queue_at_rear_end_characters(){
-// 	char* chars = malloc(sizeof(char)*3);
-// 	chars[0] = 'w';chars[1] = 'q';
-// 	queue = create(3);
-// 	enqueue(queue,&chars[0]);
-// 	ASSERT('w' == **(char**)getElement(queue,0));
-// 	free(chars);
-// }
 
-// void test_8_inserts_an_element_in_queue_at_rear_end_Strings(){
-// 	char* name = malloc(10);
-// 	name = "Digs";
-// 	queue = create(3);
-// 	enqueue(queue,name);
-// 	ASSERT("Digs" == *(char**)getElement(queue, 0));
-// 	// free(name);
-// }
+void test_7_inserts_an_element_in_queue_at_rear_end_Strings(){
+	char* name = malloc(10);
+	name = "Digs";
+	queue = create(3);
+	enqueue(queue,name);
+	ASSERT("Digs" == *(char**)getElement(queue, 0));
+	ASSERT(0==queue->info.front && 0 == queue->info.rear);
+	// free(name);
+}
 
-// void test_9_gives_error_if_stack_is_full(){
-// 	int* nums = malloc(2*sizeof(int));
-// 	int res;
-// 	queue = create(1);
-// 	nums[0] = 12;nums[1] = 10;
-// 	res = enqueue(queue, &nums[0]);
-// 	ASSERT(1 == res);
-// 	ASSERT(12 == **(int**)getElement(queue, 0));
-// 	res = enqueue(queue, &nums[1]);
-// 	ASSERT(0 == res);
-// 	free(nums);
-// }
+void test_8_gives_error_if_stack_is_full(){
+	int* nums = malloc(2*sizeof(int));
+	int res;
+	queue = create(1);
+	nums[0] = 12;nums[1] = 10;
+	res = enqueue(queue, &nums[0]);
+	ASSERT(1 == res);
+	ASSERT(12 == **(int**)getElement(queue, 0));
+	res = enqueue(queue, &nums[1]);
+	ASSERT(0 == res);
+	free(nums);
+}
 
 // typedef struct 
 // {

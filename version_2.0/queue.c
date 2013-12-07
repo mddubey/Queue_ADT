@@ -33,25 +33,27 @@ int enqueue(Queue* queue, void* element){
 
 void* dequeue(Queue* queue){
 	void* element;
-	int i;
 	if(isEmpty(queue))
 		return NULL;
-	element = *(queue->elements);
-	for(i=1;i<queue->info.length;i++){
-		queue->elements[i-1] = queue->elements[i];
+	element = *(queue->elements + queue->info.front);	//address of front element
+	if(queue->info.front==queue->info.rear){		//Deleting Last Element
+		queue->info.rear = queue->info.front = -1;
 	}
-	queue->info.rear--;
+	else if(queue->info.front==queue->info.length-1)	//Front at the End of queue
+		queue->info.front = 0;
+	else
+		queue->info.front++;
 	return element;
 };
 
 int isFull(Queue* queue){
 	if(queue->info.front == 0 && queue->info.rear == queue->info.length-1)
 		return 1;
-	if(queue->info.front==queue->info.rear-1)
+	if(queue->info.front==queue->info.rear+1)
 		return 1;
 	return 0;
 }
 
 int isEmpty(Queue* queue){
-	return queue->info.rear==-1;
+	return queue->info.front == -1;
 }

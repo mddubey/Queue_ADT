@@ -114,111 +114,129 @@ void test_8_gives_error_if_stack_is_full(){
 	free(nums);
 }
 
-// typedef struct 
-// {
-// 	int accNo;
-// 	int balance;
-// }Account;
+typedef struct 
+{
+	int accNo;
+	int balance;
+}Account;
 
-// int areAccountsEqual(Account expected,Account actual){
-// 	return expected.accNo == actual.accNo && expected.balance == actual.balance;
-// }
-// void test_10_inserts_an_element_in_queue_at_rear_end_Structure(){
-// 	Account* account = malloc(sizeof(Account));
-// 	Account expected = {100,5000};
-// 	account->accNo = 100;account->balance=5000;
-// 	queue = create(1);
-// 	enqueue(queue,account);
-// 	ASSERT(areAccountsEqual(expected, **(Account**)getElement(queue, 0)));
-// 	free(account);
-// }
+int areAccountsEqual(Account expected,Account actual){
+	return expected.accNo == actual.accNo && expected.balance == actual.balance;
+}
+void test_9_inserts_an_element_in_queue_at_rear_end_Structure(){
+	Account* account = malloc(sizeof(Account));
+	Account expected = {100,5000};
+	account->accNo = 100;account->balance=5000;
+	queue = create(1);
+	ASSERT(-1 == queue->info.front && -1 == queue->info.rear);
+	enqueue(queue,account);
+	ASSERT(0 == queue->info.front && 0 == queue->info.rear);
+	ASSERT(areAccountsEqual(expected, **(Account**)getElement(queue, 0)));
+	free(account);
+}
 
 // // //**************************Dequeue******************************************
 
-// void test_11_deletes_the_first_element_of_queue(){
-// 	int* nums = malloc(sizeof(int)*2);
-// 	int *res;
-// 	nums[0] = 12;
-// 	nums[1] = 10;
-// 	queue = create(3);
-// 	enqueue(queue, &nums[0]);
-// 	enqueue(queue, &nums[1]);
-// 	ASSERT(1==queue->info.rear);
-// 	res = dequeue(queue);
-// 	ASSERT(12==*res);
-// 	ASSERT(0==queue->info.rear);
-// 	free(nums);
-// };
+void test_10_deletes_the_front_element_of_queue_front_is_zero_and_increase_front(){
+	int* nums = malloc(sizeof(int)*2);
+	int *res;
+	nums[0] = 12;
+	nums[1] = 10;
+	queue = create(3);
+	enqueue(queue, &nums[0]);
+	enqueue(queue, &nums[1]);
+	ASSERT(0==queue->info.front);
+	res = dequeue(queue);
+	ASSERT(12==*res);
+	ASSERT(1==queue->info.front);
+	free(nums);
+};
 
-// void test_12_shift_left_remaining_elements_after_deletion(){
-// 	double* nums = malloc(sizeof(double)*3);
-// 	nums[0] = 1.0;nums[1] = 2.0;nums[2] = 3.0;
-// 	queue = create(3);
-// 	enqueue(queue, &nums[0]);
-// 	enqueue(queue, &nums[1]);
-// 	enqueue(queue, &nums[2]);
-// 	ASSERT(1.0 == **(double**)getElement(queue, 0));
-// 	ASSERT(2.0 == **(double**)getElement(queue, 1));
-// 	ASSERT(3.0 == **(double**)getElement(queue, 2));
-// 	dequeue(queue);
-// 	ASSERT(2.0 == **(double**)getElement(queue, 0));
-// 	ASSERT(3.0 == **(double**)getElement(queue, 1));
-// 	free(nums);
-// }
+void test_11_deletes_the_last_element_of_queue_and_sets_front_and_rear_minus_1(){
+	double* nums = malloc(sizeof(double));
+	double *res;
+	nums[0] = 1.0;
+	queue = create(3);
+	enqueue(queue, &nums[0]);
+	ASSERT(0==queue->info.front && 0 == queue->info.rear);
+	res = dequeue(queue);
+	ASSERT(1.0==*res);
+	ASSERT(-1 == queue->info.front && -1 == queue->info.rear);
+	free(nums);
+};
 
-// void test_13_delete_a_string_from_a_queue(){
-// 	String_256* names = malloc(sizeof(String_256)*2);
-// 	char* delete_name;
-// 	char** rem_name;
-// 	queue = create(2);
-// 	strcpy(names[0], "Rajesh");
-// 	strcpy(names[1], "Raman");
-// 	enqueue(queue, &names[0]);
-// 	enqueue(queue, &names[1]);
-// 	delete_name = dequeue(queue);
-// 	ASSERT(0==queue->info.rear);
-// 	ASSERT(0==strcmp(delete_name, "Rajesh"));
-// 	rem_name = (char**)getElement(queue, 0);
-// 	ASSERT(0==strcmp("Raman",*rem_name));
-// 	free(names);
-// }
+void test_12_set_front_to_zero_if_front_is_at_the_end_of_queue(){
+	String_256* names = malloc(sizeof(String_256)*2);
+	char* delete_name_1;
+	char* delete_name_2;
+	strcpy(names[0], "Rajesh");
+	strcpy(names[1], "Raman");
+	queue = create(2);
+	enqueue(queue, &names[0]);
+	enqueue(queue, &names[1]);
+	ASSERT(0 == queue->info.front && 1 == queue->info.rear);
+	delete_name_1 = dequeue(queue);
+	ASSERT(0==strcmp(delete_name_1, "Rajesh"));
+	ASSERT(1 == queue->info.front && 1 == queue->info.rear);
+	enqueue(queue, &names[0]);
+	ASSERT(1 == queue->info.front && 0 == queue->info.rear);
+	delete_name_2 = dequeue(queue);
+	ASSERT(0==strcmp(delete_name_2, "Raman"));
+	ASSERT(0 == queue->info.front && 0 == queue->info.rear);
+	free(names);
+}
 
-// void test_14_deletes_a_structure_from_a_queue(){
-// 	Account* accounts = malloc(sizeof(Account)*2);
-// 	Account* result;
-// 	accounts[0].accNo = 100;accounts[0].balance = 1000;
-// 	accounts[1].accNo = 101;accounts[1].balance = 2000;
-// 	queue = create(2);
-// 	enqueue(queue, &accounts[0]);
-// 	enqueue(queue, &accounts[1]);
-// 	ASSERT(areAccountsEqual(accounts[0], **(Account**)getElement(queue, 0)));
-// 	ASSERT(areAccountsEqual(accounts[1], **(Account**)getElement(queue, 1)));
-// 	ASSERT(1==queue->info.rear);
-// 	result = dequeue(queue);
-// 	ASSERT(areAccountsEqual(accounts[1], **(Account**)getElement(queue, 0)));
-// 	ASSERT(0==queue->info.rear);
-// 	free(accounts);
-// }
+void test_13_deletes_a_structure_from_a_queue(){
+	Account* accounts = malloc(sizeof(Account)*2);
+	Account* result;
+	accounts[0].accNo = 100;accounts[0].balance = 1000;
+	accounts[1].accNo = 101;accounts[1].balance = 2000;
+	queue = create(2);
+	enqueue(queue, &accounts[0]);
+	enqueue(queue, &accounts[1]);
+	ASSERT(0 == queue->info.front && 1 == queue->info.rear);
+	ASSERT(areAccountsEqual(accounts[0], **(Account**)getElement(queue, 0)));
+	ASSERT(areAccountsEqual(accounts[1], **(Account**)getElement(queue, 1)));
+	result = dequeue(queue);
+	ASSERT(areAccountsEqual(accounts[0], *result));
+	ASSERT(areAccountsEqual(accounts[1], **(Account**)getElement(queue, 1)));
+	ASSERT(1 == queue->info.front && 1 == queue->info.rear);
+	free(accounts);
+}
 
-// void test_15_gives_null_during_deletion_if_queue_is_empty(){
-// 	Account* accounts = malloc(sizeof(Account));
-// 	Account* result;
-// 	queue = create(1);
-// 	ASSERT(-1 == queue->info.rear);
-// 	result = dequeue(queue);
-// 	ASSERT(NULL == result);
-// 	ASSERT(-1 == queue->info.rear);
-// 	free(accounts);
-// }
+void test_14_gives_null_during_deletion_if_queue_is_empty(){
+	Account* accounts = malloc(sizeof(Account));
+	Account* result;
+	queue = create(1);
+	ASSERT(-1 == queue->info.rear && -1 == queue->info.front);
+	result = dequeue(queue);
+	ASSERT(NULL == result);
+	ASSERT(-1 == queue->info.rear && -1 == queue->info.front);
+	free(accounts);
+}
 
 // //************************************isFull*****************************
 
-// void test_16_tells_the_queue_is_full(){
+// void test_16_tells_the_queue_is_full_front_zero(){
 // 	int* num = malloc(sizeof(int));
 // 	int result;
 // 	*num = 10;
 // 	queue = create(1);
 // 	enqueue(queue, num);
+// 	result = isFull(queue);
+// 	ASSERT(1==result);
+// 	free(num);
+// }
+
+// void test_17_tells_the_queue_is_full_front_is_one_more_rear(){
+// 	int* num = malloc(sizeof(int)*2);
+// 	int result;
+// 	num[0] = 10;num[1] = 12;
+// 	queue = create(3);
+// 	enqueue(queue, &num[0]);
+// 	enqueue(queue, &num[1]);
+// 	enqueue(queue, &num[0]);
+// 	dequeue(queue);
 // 	result = isFull(queue);
 // 	ASSERT(1==result);
 // 	free(num);
@@ -249,3 +267,25 @@ void test_8_gives_error_if_stack_is_full(){
 // 	ASSERT(0==result);
 // 	free(num);
 // }
+
+
+
+//***************************************Some Cases******************
+
+void test_10_inserts_the_element_at_the_starting_of_queue_if_rear_is_end_of_queue(){
+	Account* accounts = malloc(sizeof(Account)*2);
+	Account expected = {101,2000};
+	accounts[0].accNo = 100;accounts[0].balance = 1000;
+	accounts[1].accNo = 101;accounts[1].balance = 2000;
+	queue = create(3);
+	ASSERT(-1 == queue->info.front && -1 == queue->info.rear);
+	enqueue(queue,&accounts[0]);
+	enqueue(queue,&accounts[1]);
+	enqueue(queue,&accounts[0]);
+	ASSERT(0 == queue->info.front && 2 == queue->info.rear);
+	dequeue(queue);
+	enqueue(queue,&accounts[1]);
+	ASSERT(1 == queue->info.front && 0 == queue->info.rear);
+	ASSERT(areAccountsEqual(expected, **(Account**)getElement(queue, 0)));
+	free(accounts);
+}

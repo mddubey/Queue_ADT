@@ -14,6 +14,16 @@ void tearDown(){
 int areEqual(Queue a, Queue b){
 	return a.front == b.front && a.rear == b.rear;
 }
+
+typedef struct 
+{
+	int accNo;
+	int balance;
+}Account;
+
+int areAccountsEqual(Account expected,Account actual){
+	return expected.accNo == actual.accNo && expected.balance == actual.balance;
+}
 // //**********************************Create Tests*************************************
 
 void test_1_creates_a__dynamic_queue(){
@@ -30,6 +40,7 @@ void test_2_insert_first_element_into_queue_rear_and_front_are_same(){
 	enqueue(queue, &num[0]);
 	ASSERT(NULL == (queue->front->next) && NULL == (queue->rear->next));
 	ASSERT(10 == *(int*)(queue->rear->item) && 10 == *(int*)(queue->front->item));
+	free(num);
 };
 
 void test_3_insert_second_element_in_queue_first_element_points_to_second (){
@@ -42,6 +53,7 @@ void test_3_insert_second_element_in_queue_first_element_points_to_second (){
 	enqueue(queue, &num[1]);
 	ASSERT(queue->rear == (queue->front->next) && NULL == (queue->rear->next));
 	ASSERT(12 == *(int*)(queue->rear->item) && 10 == *(int*)(queue->front->item));
+	free(num);
 };
 
 void test_4_insert_second_element_in_queue_first_element_points_to_second_doubles (){
@@ -54,22 +66,57 @@ void test_4_insert_second_element_in_queue_first_element_points_to_second_double
 	enqueue(queue, &num[1]);
 	ASSERT(queue->rear == (queue->front->next) && NULL == (queue->rear->next));
 	ASSERT(12.0 == *(double*)(queue->rear->item) && 10.0 == *(double*)(queue->front->item));
+	free(num);
 };
 
-// void test_3_creates_a_queue_for_Chars_elements_with_default_value_Null (){
-// 	void* _3_nulls[3] = {NULL,NULL,NULL};
-// 	Queue expected = {_3_nulls,{3,-1,-1}};
-// 	queue = create(3);
-// 	ASSERT(areEqual(expected, *queue));
-// };
+void test_5_insert_second_element_in_queue_first_element_points_to_second_characters (){
+	char* chars = malloc(sizeof(char)*2);
+	queue = create();
+	chars[0] = 'a';chars[1] = 'b';
+	enqueue(queue, &chars[0]);
+	ASSERT(NULL == (queue->front->next) && NULL == (queue->rear->next));
+	ASSERT('a' == *(char*)(queue->rear->item) && 'a' == *(char*)(queue->front->item));
+	enqueue(queue, &chars[1]);
+	ASSERT(queue->rear == (queue->front->next) && NULL == (queue->rear->next));
+	ASSERT('b' == *(char*)(queue->rear->item) && 'a' == *(char*)(queue->front->item));
+	free(chars);
+};
 
-// void test_4_creates_a_queue_for_Strings_elements_with_default_value_blank (){
-// 	void* _3_Nulls[3] = {NULL,NULL,NULL};
-// 	Queue expected = {_3_Nulls,{3,-1,-1}};
-// 	queue = create(3);
-// 	ASSERT(areEqual(expected, *queue));
-// };
-	
+void test_6_insert_second_element_in_queue_first_element_points_to_second_strings (){
+	String_256* names = malloc(sizeof(String_256)*2);
+	queue = create();
+	strcpy(names[0], "Rajesh");
+	strcpy(names[1], "Raman");
+	enqueue(queue, names[0]);
+	ASSERT(NULL == (queue->front->next) && NULL == (queue->rear->next));
+	ASSERT((0 == strcmp("Rajesh", queue->rear->item)) &&
+			 (0 == strcmp("Rajesh", queue->front->item)));
+	enqueue(queue, names[1]);
+	ASSERT(queue->rear == (queue->front->next) && NULL == (queue->rear->next));
+	ASSERT((0 == strcmp("Raman", queue->rear->item)) &&
+			 (0 == strcmp("Rajesh", queue->front->item)));
+	free(names);
+};
+
+void test_7_insert_second_element_in_queue_first_element_points_to_second_Structs (){
+	Account* accounts = malloc(sizeof(Account)*2);
+	Account* result;
+	accounts[0].accNo = 100;accounts[0].balance = 1000;
+	accounts[1].accNo = 101;accounts[1].balance = 2000;
+	queue = create();
+	enqueue(queue, &accounts[0]);
+	ASSERT(NULL == (queue->front->next) &&
+			 NULL == (queue->rear->next));
+	ASSERT(areAccountsEqual(accounts[0], *(Account*)(queue->front->item)) &&
+	 areAccountsEqual(accounts[0], *(Account*)(queue->rear->item)));
+
+	enqueue(queue, &accounts[1]);
+	ASSERT(queue->rear == (queue->front->next) &&
+			 NULL == (queue->rear->next));
+	ASSERT(areAccountsEqual(accounts[0], *(Account*)(queue->front->item)) &&
+	 areAccountsEqual(accounts[1], *(Account*)(queue->rear->item)));
+	free(accounts);
+};
 
 
 // // void test_5_nserts_an_element_in_queue_at_rear_end_Integer(){

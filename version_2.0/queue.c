@@ -49,7 +49,6 @@ void* dequeue(Queue* queue){
 int isFull(Queue* queue){
 	if(queue->info.front == 0 && queue->info.rear == queue->info.length-1)
 		return 1;
-	// printf("%d ,%d\n", queue->info.front,queue->info.rear);
 	if(queue->info.front==queue->info.rear+1)
 		return 1;
 	return 0;

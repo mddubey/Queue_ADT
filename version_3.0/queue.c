@@ -26,20 +26,14 @@ void enqueue(Queue* queue, void* element){
 	queue->rear = current_item;
 }
 
-// void* dequeue(Queue* queue){
-// 	void* element;
-// 	if(isEmpty(queue))
-// 		return NULL;
-// 	element = *(queue->elements + queue->info.front);	//address of front element
-// 	if(queue->info.front==queue->info.rear){		//Deleting Last Element
-// 		queue->info.rear = queue->info.front = -1;
-// 	}
-// 	else if(queue->info.front==queue->info.length-1)	//Front at the End of queue
-// 		queue->info.front = 0;
-// 	else
-// 		queue->info.front++;
-// 	return element;
-// };
+Queue_element* dequeue(Queue* queue){
+	Queue_element* element;
+	if(isEmpty(queue))
+		return NULL;
+	element = queue->front;
+	queue->front = queue->front->next;
+	return element;
+};
 
 // int isFull(Queue* queue){
 // 	if(queue->info.front == 0 && queue->info.rear == queue->info.length-1)
@@ -49,6 +43,6 @@ void enqueue(Queue* queue, void* element){
 // 	return 0;
 // }
 
-// int isEmpty(Queue* queue){
-// 	return queue->info.front == -1;
-// }
+int isEmpty(Queue* queue){
+	return queue->front == NULL;
+}

@@ -263,6 +263,7 @@ void test_17_deletes_the_front_element_of_queue_single_element_in_queue_structur
 	ASSERT(NULL == queue->front->next);
 	free(accounts);
 }
+
 // void test_14_gives_null_during_deletion_if_queue_is_empty(){
 // 	Account* accounts = malloc(sizeof(Account));
 // 	Account* result;

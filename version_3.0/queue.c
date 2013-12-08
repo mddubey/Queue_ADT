@@ -10,10 +10,6 @@ Queue* create(){
 	return queue;
 }
 
-// void** getElement(Queue* queue, int index){
-// 	return (queue->elements+index);
-// };
-
 void enqueue(Queue* queue, void* element){
 	Queue_element* current_item = (Queue_element*)malloc(sizeof(Queue_element));
 	(current_item->next) = NULL;
@@ -28,20 +24,14 @@ void enqueue(Queue* queue, void* element){
 
 Queue_element* dequeue(Queue* queue){
 	Queue_element* element;
+	//Should I calloc/malloc here for element because i am returning this address
 	if(isEmpty(queue))
 		return NULL;
 	element = queue->front;
+	// free(queue->front);// I should free the deleted element in test case or library
 	queue->front = queue->front->next;
 	return element;
 };
-
-// int isFull(Queue* queue){
-// 	if(queue->info.front == 0 && queue->info.rear == queue->info.length-1)
-// 		return 1;
-// 	if(queue->info.front==queue->info.rear+1)
-// 		return 1;
-// 	return 0;
-// }
 
 int isEmpty(Queue* queue){
 	return queue->front == NULL;

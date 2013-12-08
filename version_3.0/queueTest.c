@@ -8,7 +8,6 @@
 Queue* queue;
 
 void tearDown(){
-	// free(queue->elements);
 	free(queue);
 }
 
@@ -22,22 +21,40 @@ void test_1_creates_a__dynamic_queue(){
 	queue = create();
 	ASSERT(areEqual(expected, *queue));
 };
+//**************************************enqueue***********************************
 
-void test_2_insert_an_element_into_queue(){
+void test_2_insert_first_element_into_queue_rear_and_front_are_same(){
 	int* num = malloc(sizeof(int));
 	queue = create();
 	num[0] = 10;
 	enqueue(queue, &num[0]);
 	ASSERT(NULL == (queue->front->next) && NULL == (queue->rear->next));
-	ASSERT(10 == *(int*)(queue->rear->item));
-}
+	ASSERT(10 == *(int*)(queue->rear->item) && 10 == *(int*)(queue->front->item));
+};
 
-// void test_2_creates_a_queue_for_doubles_elements_with_default_value_zero (){
-// 	void* _3_nulls[3] = {NULL,NULL,NULL};
-// 	Queue expected = {_3_nulls,{3,-1,-1}};
-// 	queue = create(3);
-// 	ASSERT(areEqual(expected, *queue));
-// };
+void test_3_insert_second_element_in_queue_first_element_points_to_second (){
+	int* num = malloc(sizeof(int)*2);
+	queue = create();
+	num[0] = 10;num[1] = 12;
+	enqueue(queue, &num[0]);
+	ASSERT(NULL == (queue->front->next) && NULL == (queue->rear->next));
+	ASSERT(10 == *(int*)(queue->rear->item) && 10 == *(int*)(queue->front->item));
+	enqueue(queue, &num[1]);
+	ASSERT(queue->rear == (queue->front->next) && NULL == (queue->rear->next));
+	ASSERT(12 == *(int*)(queue->rear->item) && 10 == *(int*)(queue->front->item));
+};
+
+void test_4_insert_second_element_in_queue_first_element_points_to_second_doubles (){
+	double* num = malloc(sizeof(double)*2);
+	queue = create();
+	num[0] = 10.0;num[1] = 12.0;
+	enqueue(queue, &num[0]);
+	ASSERT(NULL == (queue->front->next) && NULL == (queue->rear->next));
+	ASSERT(10.0 == *(double*)(queue->rear->item) && 10.0 == *(double*)(queue->front->item));
+	enqueue(queue, &num[1]);
+	ASSERT(queue->rear == (queue->front->next) && NULL == (queue->rear->next));
+	ASSERT(12.0 == *(double*)(queue->rear->item) && 10.0 == *(double*)(queue->front->item));
+};
 
 // void test_3_creates_a_queue_for_Chars_elements_with_default_value_Null (){
 // 	void* _3_nulls[3] = {NULL,NULL,NULL};
@@ -54,7 +71,6 @@ void test_2_insert_an_element_into_queue(){
 // };
 	
 
-// // //**************************************enqueue***********************************
 
 // // void test_5_nserts_an_element_in_queue_at_rear_end_Integer(){
 // // 	int* _12 = malloc(4);
